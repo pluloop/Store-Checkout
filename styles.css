@@ -1,0 +1,83 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70rem;
+}
+
+.page{
+    width: 45rem;
+    height: 55rem;
+    border: 1px solid black;
+}
+
+h1,
+h2,
+h3{
+    font-family: "Arial";
+}
+
+h1{
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.scan,
+.scan-text,
+.quantity,
+.quantity-text,
+.button,
+.divider,
+h2,
+h3{
+    position: relative;
+}
+
+.scan,
+.scan-text,
+.quantity{
+    left: 1rem;
+}
+
+.scan,
+.scan-text{
+    display: inline-block;
+}
+
+.scan-text{
+    color: #808080;
+}
+
+.quantity-text{
+    top: -2rem;
+    left: 5rem;
+}
+
+.button{
+    top: 1rem;
+    left: -8.4rem;
+    color: #FFFFFF;
+    background-color: 	#228B22;
+
+}
+
+.divider{
+    border: 1px solid black;
+    top: 1.25rem;
+    left: 1rem;
+    width: 43rem;
+}
+
+h2{
+    text-align: center;
+    font-size: 2rem;
+    top: 1rem;
+}
+
+h3{
+    display: inline-block;
+    font-size: 1.5rem;
+    left: -1rem;
+    text-indent: 8rem;
+    text-decoration: underline;
+}
