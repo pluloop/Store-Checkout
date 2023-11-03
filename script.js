@@ -1,6 +1,6 @@
-const barcodeNum = docunment.getElementById("barcode-num");
-const quantityNum = docunment.getElementById("quantity-num");
-const addCartButton = docunment.getElementById("button-add");
+const barcodeNum = document.getElementById("barcode-num"); 
+const quantityNum = document.getElementById("quantity-num");
+const addCartButton = document.getElementById("button-add");
 const itemList = document.getElementById("item-list");
 
 const barcode = {
@@ -79,6 +79,11 @@ function addItem(){
     const itemBorder = document.createElement("div");
     itemBorder.classList.add("item");
     itemList.appendChild(itemBorder);
+
+    let quantityText = document.createElement("p");
+    quantityText.classList.add("quantity-text");
+    quantityText.innerText = quantityNum.value;
+    itemBorder.appendChild(quantityText);       
 }
 
 addCartButton.addEventListener("click", addItem);

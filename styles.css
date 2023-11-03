@@ -14,7 +14,8 @@ body{
 h1,
 h2,
 h3,
-.total-amount{
+.total-amount,
+.quantity-text{
     font-family: "Arial";
 }
 
@@ -26,7 +27,7 @@ h1{
 .scan,
 .scan-text,
 .quantity,
-.quantity-text,
+.quantity-num,
 .button-add,
 .divider,
 h2,
@@ -51,7 +52,7 @@ h3,
     color: #808080;
 }
 
-.quantity-text{
+.quantity-num{
     top: -2rem;
     left: 5rem;
 }
@@ -108,7 +109,12 @@ h3{
 }
 
 .item{
-    width: 5rem;
+    width: 39rem;
     height: 5rem;
     border: 1px solid black;
+}
+
+.quantity-text{
+    font-size: 2.5rem;
+    
 }
