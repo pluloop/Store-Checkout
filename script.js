@@ -1,7 +1,12 @@
-const barcodeNum = document.getElementById("barcode-num"); 
-const quantityNum = document.getElementById("quantity-num");
-const addCartButton = document.getElementById("button-add");
-const itemList = document.getElementById("item-list");
+const barcodeNumHTML = document.getElementById("barcode-num"); 
+const quantityNumHTML = document.getElementById("quantity-num");
+const addCartButtonHTML = document.getElementById("button-add");
+const itemListHTML = document.getElementById("item-list");
+const totalAmountHTML = document.getElementById("total-amount");
+var totalAmountNumber = 0.0;
+
+var name;
+var price;  
 
 const barcode = {
     "689145740844": {
@@ -76,14 +81,26 @@ const barcode = {
 }   
 
 function addItem(){
-    const itemBorder = document.createElement("div");
-    itemBorder.classList.add("item");
-    itemList.appendChild(itemBorder);
+    const itemBorderHTML = document.createElement("div");
+    itemBorderHTML.classList.add("item");
+    itemListHTML.appendChild(itemBorderHTML);
 
-    let quantityText = document.createElement("p");
-    quantityText.classList.add("quantity-text");
-    quantityText.innerText = quantityNum.value;
-    itemBorder.appendChild(quantityText);       
+    let itemTextHTML = document.createElement("p");
+    itemTextHTML.classList.add("item-text");
+    itemTextHTML.innerText = barcode[barcodeNumHTML.value].name;
+    itemBorderHTML.appendChild(itemTextHTML); 
+
+    let priceTextHTML = document.createElement("p");
+    priceTextHTML.classList.add("price-text");
+    priceTextHTML.innerText = barcode[barcodeNumHTML.value].price;
+    itemBorderHTML.appendChild(priceTextHTML); 
+    totalAmountNumber += barcode[barcodeNumHTML.value].price;
+    totalAmountHTML.innerText = "Total $" + totalAmountNumber;
+
+    let quantityTextHTML = document.createElement("p");
+    quantityTextHTML.classList.add("quantity-text");
+    quantityTextHTML.innerText = quantityNumHTML.value;
+    itemBorderHTML.appendChild(quantityTextHTML); 
 }
 
-addCartButton.addEventListener("click", addItem);
+addCartButtonHTML.addEventListener("click", addItem);
