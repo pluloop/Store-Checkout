@@ -3,6 +3,7 @@ const quantityNumHTML = document.getElementById("quantity-num");
 const addCartButtonHTML = document.getElementById("button-add");
 const itemListHTML = document.getElementById("item-list");
 const totalAmountHTML = document.getElementById("total-amount");
+const tableHTML = document.getElementById("table");
 var totalAmountNumber = 0.0;
 
 var name;
@@ -80,27 +81,39 @@ const barcode = {
     },
 }   
 
+var deletedItems = {}
+
 function addItem(){
-    const itemBorderHTML = document.createElement("div");
-    itemBorderHTML.classList.add("item");
-    itemListHTML.appendChild(itemBorderHTML);
+    if (barcode.hasOwnProperty(barcodeNumHTML.value)){
+        let itemRowHTML = document.createElement("tr");
+        tableHTML.appendChild(itemRowHTML); 
+        let itemSectionHTML = document.createElement("td");
+        itemSectionHTML.classList.add("item-section");
+        itemSectionHTML.innerText = barcode[barcodeNumHTML.value].name;
+        itemRowHTML.appendChild(itemSectionHTML);
 
-    let itemTextHTML = document.createElement("p");
-    itemTextHTML.classList.add("item-text");
-    itemTextHTML.innerText = barcode[barcodeNumHTML.value].name;
-    itemBorderHTML.appendChild(itemTextHTML); 
+        let costSectionHTML = document.createElement("td");
+        costSectionHTML.classList.add("cost-section");
+        costSectionHTML.innerText = barcode[barcodeNumHTML.value].price;
+        tableHTML.appendChild(itemRowHTML); 
+        itemRowHTML.appendChild(costSectionHTML);
+        totalAmountNumber += barcode[barcodeNumHTML.value].price;
+        totalAmountHTML.innerText = "Total $" + totalAmountNumber;
 
-    let priceTextHTML = document.createElement("p");
-    priceTextHTML.classList.add("price-text");
-    priceTextHTML.innerText = barcode[barcodeNumHTML.value].price;
-    itemBorderHTML.appendChild(priceTextHTML); 
-    totalAmountNumber += barcode[barcodeNumHTML.value].price;
-    totalAmountHTML.innerText = "Total $" + totalAmountNumber;
+        let quantitySectionHTML = document.createElement("td");
+        quantitySectionHTML.classList.add("quantity-section");
+        quantitySectionHTML.innerText = quantityNumHTML.value;
+        itemRowHTML.appendChild(quantitySectionHTML); 
+        
+        deletedItems[barcode[barcodeNumHTML.value]] = barcode[barcodeNumHTML.value].price;
 
-    let quantityTextHTML = document.createElement("p");
-    quantityTextHTML.classList.add("quantity-text");
-    quantityTextHTML.innerText = quantityNumHTML.value;
-    itemBorderHTML.appendChild(quantityTextHTML); 
+        delete barcode[barcodeNumHTML.value];
+    }
+
+    else{
+        totalAmountNumber += deletedItems[barcodeNumHTML.value];
+        totalAmountHTML.innerText = "Total $" + totalAmountNumber;
+    }
 }
 
 addCartButtonHTML.addEventListener("click", addItem);

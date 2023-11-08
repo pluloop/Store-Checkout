@@ -13,7 +13,8 @@ body{
 
 h1,
 h2,
-h3,
+th,
+td
 .total-amount,
 .quantity-text{
     font-family: "Arial";
@@ -31,7 +32,8 @@ h1{
 .button-add,
 .divider,
 h2,
-h3,
+th,
+td,
 .total-amount,
 .button-checkout{
     position: relative;
@@ -78,12 +80,29 @@ h2{
     top: 1rem;
 }
 
-h3{
-    display: inline-block;
-    font-size: 1.5rem;
-    left: -1rem;
-    text-indent: 8rem;
+th{
     text-decoration: underline;
+}
+
+.cost-section{
+    display: relative;
+    left: 13rem;
+}
+
+.quantity-section{
+    display: relative;
+    left: 20rem;
+}
+
+.item-section{
+    display: relative;
+    left: 5rem;
+}
+
+th,
+td{
+    font-size: 1.5rem;
+    text-align: center;
 }
 
 .item-list{
@@ -106,20 +125,4 @@ h3{
     top: 1rem;
     color: #FFFFFF;
     background-color: 	#228B22;
-}
-
-.item{
-    width: 39rem;
-    height: 5rem;
-    border: 1px solid black;
-    text-indent: 3.5rem;
-}
-
-.item-text,
-.price-text,
-.quantity-text{
-    display: inline-block;
-    font-size: 1.5rem;
-    position: relative;
-    top: -0.5rem;
 }
