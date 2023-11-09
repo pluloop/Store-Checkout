@@ -97,15 +97,20 @@ function addItem(){
         costSectionHTML.innerText = barcode[barcodeNumHTML.value].price;
         tableHTML.appendChild(itemRowHTML); 
         itemRowHTML.appendChild(costSectionHTML);
-        totalAmountNumber += barcode[barcodeNumHTML.value].price;
-        totalAmountHTML.innerText = "Total $" + totalAmountNumber;
+
+        costSectionHTML.setAttribute("id", barcodeNumHTML.value + "cost");
 
         let quantitySectionHTML = document.createElement("td");
         quantitySectionHTML.classList.add("quantity-section");
         quantitySectionHTML.innerText = quantityNumHTML.value;
         itemRowHTML.appendChild(quantitySectionHTML); 
+        quantitySectionHTML.setAttribute("id", barcodeNumHTML.value + "quantity");
+        quantitySectionHTML.setAttribute("value", quantityNumHTML.value);
         
-        deletedItems[barcode[barcodeNumHTML.value]] = barcode[barcodeNumHTML.value].price;
+        totalAmountNumber += barcode[barcodeNumHTML.value].price;
+        totalAmountHTML.innerText = "Total $" + totalAmountNumber;
+
+        deletedItems[barcodeNumHTML.value] = barcode[barcodeNumHTML.value].price;
 
         delete barcode[barcodeNumHTML.value];
     }
@@ -113,6 +118,13 @@ function addItem(){
     else{
         totalAmountNumber += deletedItems[barcodeNumHTML.value];
         totalAmountHTML.innerText = "Total $" + totalAmountNumber;
+        let costSectionHTML = document.getElementById(barcodeNumHTML.value + "cost");
+        costSectionHTML.innerText = totalAmountNumber;
+        let quantitySectionHTML = document.getElementById(barcodeNumHTML.value + "quantity");
+        console.log(quantitySectionHTML.value);
+        quantitySectionHTML.innerText = parseFloat(quantitySectionHTML.value) + parseFloat(quantityNumHTML.value);
+        console.log(parseFloat(typeof quantitySectionHTML.innerText));
+        console.log(parseFloat(quantityNumHTML.value));
     }
 }
 
