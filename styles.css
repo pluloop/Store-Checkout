@@ -16,7 +16,9 @@ h2,
 th,
 td
 .total-amount,
-.quantity-text{
+.quantity-text,
+.error-message,
+.tax-message{
     font-family: "Arial";
 }
 
@@ -35,7 +37,9 @@ h2,
 th,
 td,
 .total-amount,
-.button-checkout{
+.button-checkout,
+.error-message,
+.tax-message{
     position: relative;
 }
 
@@ -125,4 +129,16 @@ td{
     top: 1rem;
     color: #FFFFFF;
     background-color: 	#228B22;
+}
+
+.error-message{
+    top:  -35rem;
+    left: 25rem;
+    font-size: 2.25rem;
+    color: #f1807e;
+}
+
+.tax-message{
+ left: 2rem;
+ top: 1rem;
 }

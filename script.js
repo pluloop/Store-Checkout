@@ -1,14 +1,26 @@
+// to get value from text-input
 const barcodeNumHTML = document.getElementById("barcode-num"); 
 const quantityNumHTML = document.getElementById("quantity-num");
+// to use in event listener
 const addCartButtonHTML = document.getElementById("button-add");
-const itemListHTML = document.getElementById("item-list");
-const totalAmountHTML = document.getElementById("total-amount");
+const checkoutButtonHTML = document.getElementById("button-checkout");
+
+// to nest elements inside
 const tableHTML = document.getElementById("table");
+const pageHTML = document.getElementById("page");
+
+// to display error message and tax
+const errorMessageHTML = document.createElement("p");
+const taxMessageHTML = document.createElement("p");
+
+// to display subtotal
+const totalAmountHTML = document.getElementById("total-amount");
+
+// track cost and quantity of each item
 var totalAmountNumber = 0.0;
+var totalQuantity = 0;
 
-var name;
-var price;  
-
+// to store barcode with a corresponding item name and price
 const barcode = {
     "689145740844": {
         name: "JavaScript Textbook",
@@ -79,10 +91,12 @@ const barcode = {
         name: "Spiral Notebook",
         price: 1.99
     },
-}   
+};
 
-var deletedItems = {}
+// used to store items that have already been scanned (to prevent duplication of items showing up)
+var deletedItems = {};
 
+// to add an item to the list
 function addItem(){
     if (barcode.hasOwnProperty(barcodeNumHTML.value)){
         let itemRowHTML = document.createElement("tr");
@@ -107,25 +121,40 @@ function addItem(){
         quantitySectionHTML.setAttribute("id", barcodeNumHTML.value + "quantity");
         quantitySectionHTML.setAttribute("value", quantityNumHTML.value);
         
-        totalAmountNumber += barcode[barcodeNumHTML.value].price;
+        totalAmountNumber += parseFloat(barcode[barcodeNumHTML.value].price.toFixed(2));
         totalAmountHTML.innerText = "Total $" + totalAmountNumber;
+        totalQuantity = parseFloat(quantityNumHTML.value);
 
         deletedItems[barcodeNumHTML.value] = barcode[barcodeNumHTML.value].price;
 
         delete barcode[barcodeNumHTML.value];
     }
 
-    else{
-        totalAmountNumber += deletedItems[barcodeNumHTML.value];
+    else if (deletedItems.hasOwnProperty(barcodeNumHTML.value)){
+        totalAmountNumber += parseFloat(deletedItems[barcodeNumHTML.value].toFixed(2));
         totalAmountHTML.innerText = "Total $" + totalAmountNumber;
         let costSectionHTML = document.getElementById(barcodeNumHTML.value + "cost");
         costSectionHTML.innerText = totalAmountNumber;
         let quantitySectionHTML = document.getElementById(barcodeNumHTML.value + "quantity");
-        console.log(quantitySectionHTML.value);
-        quantitySectionHTML.innerText = parseFloat(quantitySectionHTML.value) + parseFloat(quantityNumHTML.value);
-        console.log(parseFloat(typeof quantitySectionHTML.innerText));
-        console.log(parseFloat(quantityNumHTML.value));
+        totalQuantity += parseFloat(quantityNumHTML.value);
+        quantitySectionHTML.innerText = totalQuantity;
+    }
+
+    else{
+        errorMessageHTML.innerText = "Invalid Input!";
+        errorMessageHTML.classList.add("error-message");
+        pageHTML.appendChild(errorMessageHTML);
     }
 }
 
+// calculate tax (9.25% of subtotal) and display it
+function calculateTax(){
+    let totalAfterTax = (totalAmountNumber + totalAmountNumber * 0.0925);
+    taxMessageHTML.innerText = "Your grand total (including tax, 9.25%) is $" + parseFloat(totalAfterTax.toFixed(2));
+    taxMessageHTML.classList.add("tax-message");
+    pageHTML.appendChild(taxMessageHTML);
+}
+
+// add item or calculate tax upon click of button
 addCartButtonHTML.addEventListener("click", addItem);
+checkoutButtonHTML.addEventListener("click", calculateTax);
